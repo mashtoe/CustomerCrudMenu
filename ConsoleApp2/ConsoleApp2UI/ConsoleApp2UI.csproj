@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp2BLL\ConsoleApp2BLL.csproj" />
-    <ProjectReference Include="..\ConsoleApp2Entity\ConsoleApp2Entity.csproj" />
   </ItemGroup>
 
 </Project>

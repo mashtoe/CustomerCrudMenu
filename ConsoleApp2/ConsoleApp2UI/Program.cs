@@ -1,5 +1,5 @@
 ﻿using ConsoleApp2BLL;
-using ConsoleApp2Entity;
+using ConsoleApp2BLL.BusinessObjects;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace ConsoleApp2UI
 
         Program()
         {
-            var cust = new Customer()
+            var cust = new CustomerBO()
             {
                 Name = "Jens",
                 Lastname = "Jensen",
@@ -75,7 +75,7 @@ namespace ConsoleApp2UI
 
         private void Delete()
         {
-            List<Customer> customers = bllFacade.CustomerService.GetAll();
+            List<CustomerBO> customers = bllFacade.CustomerService.GetAll();
             List<string> items = new List<string>();
             for (int i = 0; i < customers.Count; i++)
             {
@@ -92,7 +92,7 @@ namespace ConsoleApp2UI
 
         private void Update()
         {
-            List<Customer> customers = bllFacade.CustomerService.GetAll();
+            List<CustomerBO> customers = bllFacade.CustomerService.GetAll();
             List<string> items = new List<string>();
             for (int i = 0; i < customers.Count; i++)
             {
@@ -122,7 +122,7 @@ namespace ConsoleApp2UI
 
         private void Read()
         {
-            List<Customer> customers = bllFacade.CustomerService.GetAll();
+            List<CustomerBO> customers = bllFacade.CustomerService.GetAll();
             List<string> items = new List<string>();
             for (int i = 0; i < customers.Count; i++)
             {
@@ -134,7 +134,7 @@ namespace ConsoleApp2UI
             if (value != customers.Count)
             {
                 Console.Clear();
-                Console.WriteLine($"{customers[value].Name} {customers[value].Lastname} ({customers[value].Address})");
+                Console.WriteLine($"{customers[value].FullName} ({customers[value].Address})");
                 Console.ReadLine();
             }
             
@@ -160,23 +160,47 @@ namespace ConsoleApp2UI
 
         private void Create()
         {
-            Console.Clear();
-            Console.WriteLine("Enter firstname:");
-            string name = Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Enter lastname:");
-            string lastname = Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Enter address:");
-            string address = Console.ReadLine();
-
-            Customer newCust = bllFacade.CustomerService.Create(new Customer()
+            bool done = false;
+            List<CustomerBO> customers = new List<CustomerBO>();
+            while(done == false)
             {
-                Name = name,
-                Lastname = lastname,
-                Address = address
+                Console.Clear();
+                Console.WriteLine("Enter firstname:");
+                string name = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("Enter lastname:");
+                string lastname = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("Enter address:");
+                string address = Console.ReadLine();
 
-            });
+                customers.Add(new CustomerBO()
+                {
+                    Name = name,
+                    Lastname = lastname,
+                    Address = address
+
+                });
+
+                Console.Clear();
+                Console.WriteLine("Do you want to create another customer? \n1. Yes\n2. No");
+                int answer;
+                String input;
+                while (!int.TryParse(input = Console.ReadLine(), out answer) || answer > 2 || answer <= 0)
+                {
+                    Console.WriteLine($"Please type number ranging 1-2. (Input: {input})");
+                }
+
+                if (answer == 2)
+                {
+                    done = true;
+                }
+
+            }
+
+            List<CustomerBO> newCust = bllFacade.CustomerService.CreateMultiple(customers);
+
+
 
 
         }

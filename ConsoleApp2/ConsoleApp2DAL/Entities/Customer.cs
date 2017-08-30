@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp2Entity
+namespace ConsoleApp2DAL.Entities
 {
     public class Customer
     {
@@ -13,7 +13,7 @@ namespace ConsoleApp2Entity
 
         public Customer()
         {
-
+            
         }
     }
 }

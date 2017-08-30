@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ConsoleApp2Entity;
 using ConsoleApp2DAL;
 using System.Linq;
+using ConsoleApp2BLL.BusinessObjects;
+using ConsoleApp2DAL.Entities;
 
 namespace ConsoleApp2BLL.Services
 {
@@ -16,15 +17,29 @@ namespace ConsoleApp2BLL.Services
             this.facade = facade;
         }
 
-        public Customer Create(Customer cust)
+        public CustomerBO Create(CustomerBO cust)
         {
             using (var uow = facade.UnitOfWork)
             {
-                var newCust = uow.CustomerRepository.Create(cust);
+                var newCust = uow.CustomerRepository.Create(Convert(cust));
                 uow.Complete();
-                return newCust;
+                return Convert(newCust);
             }
+        }
 
+        public List<CustomerBO> CreateMultiple(List<CustomerBO> customers)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                List<CustomerBO> retrunListCust = new List<CustomerBO>();
+                for (int i = 0; i < customers.Count; i++)
+                {
+                    var newCust = uow.CustomerRepository.Create(Convert(customers[i]));
+                    retrunListCust.Add(Convert(newCust));
+                }
+                uow.Complete();
+                return retrunListCust;
+            }
         }
 
         public bool DeleteCustomer(int id)
@@ -37,23 +52,25 @@ namespace ConsoleApp2BLL.Services
             }
         }
 
-        public List<Customer> GetAll()
+        public List<CustomerBO> GetAll()
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.CustomerRepository.GetAll();
+                //Customer -> CustomerBO
+                //return uow.CustomerRepository.GetAll();
+                return uow.CustomerRepository.GetAll().Select(c => Convert(c)).ToList();
             }
         }
 
-        public Customer GetCustomer(int id)
+        public CustomerBO GetCustomer(int id)
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.CustomerRepository.GetCustomer(id);
+                return Convert(uow.CustomerRepository.GetCustomer(id));
             }
         }
 
-        public Customer UpdateCustomer(Customer cust)
+        public CustomerBO UpdateCustomer(CustomerBO cust)
         {
             using (var uow = facade.UnitOfWork)
             {
@@ -66,11 +83,31 @@ namespace ConsoleApp2BLL.Services
                 customerFromDb.Lastname = cust.Lastname;
                 customerFromDb.Address = cust.Address;
                 uow.Complete();
-                return customerFromDb;
+                return Convert(customerFromDb);
             }
-                
-            
-            
+        }
+
+
+        private Customer Convert(CustomerBO cust)
+        {
+            return new Customer()
+            {
+                Id = cust.Id,
+                Address = cust.Address,
+                Name = cust.Name,
+                Lastname = cust.Lastname
+            };
+        }
+
+        private CustomerBO Convert(Customer cust)
+        {
+            return new CustomerBO()
+            {
+                Id = cust.Id,
+                Address = cust.Address,
+                Name = cust.Name,
+                Lastname = cust.Lastname
+            };
         }
     }
 }

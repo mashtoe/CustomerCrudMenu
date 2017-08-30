@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ConsoleApp2Entity;
 using System.Linq;
+using ConsoleApp2DAL.Entities;
 
 namespace ConsoleApp2DAL.Repositories
 {

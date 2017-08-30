@@ -17,7 +17,6 @@ namespace ConsoleApp2DAL.UOW
             CustomerRepository = new CustomerRepositoryEFMemory(context);
         }
 
-
         public int Complete()
         {
             return context.SaveChanges();
@@ -27,5 +26,5 @@ namespace ConsoleApp2DAL.UOW
         {
             context.Dispose();
         }
-    }
+    }                                                                       
 }

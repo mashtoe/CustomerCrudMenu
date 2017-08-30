@@ -8,8 +8,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="1.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleApp2Entity\ConsoleApp2Entity.csproj" />
-  </ItemGroup>
-
 </Project>

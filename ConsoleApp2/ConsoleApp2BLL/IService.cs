@@ -1,4 +1,5 @@
-﻿using ConsoleApp2Entity;
+﻿
+using ConsoleApp2BLL.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +9,15 @@ namespace ConsoleApp2BLL
     public interface IService
     {
         //C
-        Customer Create(Customer cust);
+        CustomerBO Create(CustomerBO cust);
         //R
-        List<Customer> GetAll();
-        Customer GetCustomer(int id);
+        List<CustomerBO> GetAll();
+        CustomerBO GetCustomer(int id);
         //U
-        Customer UpdateCustomer(Customer cust);
+        CustomerBO UpdateCustomer(CustomerBO cust);
         //D
         bool DeleteCustomer(int id);
+
+        List<CustomerBO> CreateMultiple(List<CustomerBO> customers);
     }
 }

@@ -11,7 +11,7 @@ namespace ConsoleApp2DAL
         public ICustomerRepository CustomerRepository
         {
             //get { return new CustomerRepositoryFakeDB(); }
-            get
+            get 
             {
                 return new CustomerRepositoryEFMemory(new Context.InMemoryContext());
             }

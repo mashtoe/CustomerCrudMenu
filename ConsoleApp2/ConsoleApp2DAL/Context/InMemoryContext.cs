@@ -1,4 +1,5 @@
-﻿using ConsoleApp2Entity;
+﻿
+using ConsoleApp2DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
