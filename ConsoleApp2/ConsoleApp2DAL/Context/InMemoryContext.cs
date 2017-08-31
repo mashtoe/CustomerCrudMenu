@@ -18,5 +18,6 @@ namespace ConsoleApp2DAL.Context
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Genre> Genre { get; set; }
     }
 }

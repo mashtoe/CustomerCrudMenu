@@ -18,6 +18,15 @@ namespace ConsoleApp2DAL
 
         }
 
+        public IGenreRepository GenreRepository
+        {
+            get
+            {
+                return new GenreRepositoryEFMemory(new Context.InMemoryContext());
+            }
+
+        }
+
         public IUnitOfWork UnitOfWork
         {
             get

@@ -9,12 +9,15 @@ namespace ConsoleApp2DAL.UOW
     public class UnitOfWorkMem : IUnitOfWork
     {
         public ICustomerRepository CustomerRepository { get; internal set; }
+        public IGenreRepository GenreRepository { get; internal set; }
         private InMemoryContext context;
 
         public UnitOfWorkMem()
         {
             context = new InMemoryContext();
             CustomerRepository = new CustomerRepositoryEFMemory(context);
+            GenreRepository = new GenreRepositoryEFMemory(context);
+
         }
 
         public int Complete()
